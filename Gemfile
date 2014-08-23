@@ -3,9 +3,12 @@ source 'https://rubygems.org'
 
 gem "decent_exposure"
 gem "decent_generators"
+gem 'delayed_job_active_record'
 gem "devise"
 gem "haml"
 gem "haml-rails"
+gem 'mechanize'
+gem 'nokogiri'
 gem "pg"
 gem "pry"
 gem "pry-rails"

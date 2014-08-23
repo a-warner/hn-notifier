@@ -41,6 +41,11 @@ GEM
     decent_exposure (2.3.2)
     decent_generators (0.0.2)
       rails (~> 4.0)
+    delayed_job (4.0.2)
+      activesupport (>= 3.0, < 4.2)
+    delayed_job_active_record (4.0.2)
+      activerecord (>= 3.0, < 4.2)
+      delayed_job (>= 3.0, < 4.1)
     devise (3.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -48,6 +53,8 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    domain_name (0.5.20)
+      unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.2.1)
     factory_girl (4.4.0)
@@ -61,6 +68,8 @@ GEM
       haml (>= 3.1, < 5.0)
       railties (>= 4.0.1)
     hike (1.2.3)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     i18n (0.6.11)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
@@ -72,10 +81,25 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mechanize (2.7.2)
+      domain_name (~> 0.5, >= 0.5.1)
+      http-cookie (~> 1.0.0)
+      mime-types (~> 1.17, >= 1.17.2)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 2.5, >= 2.5.2)
+      nokogiri (~> 1.4)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (>= 0.0.9, < 0.2)
     method_source (0.8.2)
     mime-types (1.25.1)
+    mini_portile (0.6.0)
     minitest (5.4.0)
     multi_json (1.10.1)
+    net-http-digest_auth (1.4)
+    net-http-persistent (2.9.4)
+    nokogiri (1.6.3.1)
+      mini_portile (= 0.6.0)
+    ntlm-http (0.1.1)
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyglot (0.3.5)
@@ -160,8 +184,12 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.6)
     warden (1.2.3)
       rack (>= 1.0)
+    webrobots (0.1.1)
 
 PLATFORMS
   ruby
@@ -170,6 +198,7 @@ DEPENDENCIES
   coffee-rails
   decent_exposure
   decent_generators
+  delayed_job_active_record
   devise
   factory_girl
   fivemat
@@ -177,6 +206,8 @@ DEPENDENCIES
   haml-rails
   jbuilder (~> 1.2)
   jquery-rails
+  mechanize
+  nokogiri
   pg
   pry
   pry-rails
