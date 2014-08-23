@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140823224100) do
+ActiveRecord::Schema.define(version: 20140823234253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,13 @@ ActiveRecord::Schema.define(version: 20140823224100) do
 
   add_index "hacker_news_stories", ["full_text_search"], name: "hacker_news_stories_full_text_search_idx", using: :gin
   add_index "hacker_news_stories", ["hn_id"], name: "index_hacker_news_stories_on_hn_id", unique: true, using: :btree
+
+  create_table "saved_searches", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.string   "query",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
