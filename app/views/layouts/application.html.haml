@@ -16,11 +16,19 @@
         .container-fluid
           .navbar-header
             %a.navbar-brand{href: '/'}= application_name
+          .collapse.navbar-collapse
+            - if user_signed_in?
+              %p.navbar-text Signed in as #{current_user.email}
+              %ul.nav.navbar-nav
+                %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
+            - else
+              %ul.nav.navbar-nav
+                %li= link_to 'Sign In', new_user_session_path
     .container-fluid
       .row
         .col-md-9.col-md-offset-1{role: 'main'}
           - flash.keys.each do |key|
-            .alert{ class: "alert-#{key}" }
+            .alert{ class: "alert-#{rails_to_bootstrap_flash_key(key)}", role: 'alert' }
               %a.close{ href: '#', "data-dismiss" => "alert" } x
               %h4.alert-heading= key.capitalize
               - if flash[key].respond_to?(:each)
