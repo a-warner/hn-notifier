@@ -12,4 +12,12 @@ class HackerNewsStory < ActiveRecord::Base
     end
     handle_asynchronously :scrape
   end
+
+  scope :search, ->(query, limit: nil) do
+    select("#{table_name}.*, ts_rank_cd(#{table_name}.full_text_search, query) rank").
+     from("#{table_name}, plainto_tsquery(#{connection.quote(query)}) query").
+    where("query @@ #{table_name}.full_text_search").
+    order('rank desc').
+    limit(limit)
+  end
 end

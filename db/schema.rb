@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140823192627) do
+ActiveRecord::Schema.define(version: 20140823224100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,8 +39,10 @@ ActiveRecord::Schema.define(version: 20140823192627) do
     t.datetime "first_seen_on_front_page_at", null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.tsvector "full_text_search",            null: false
   end
 
+  add_index "hacker_news_stories", ["full_text_search"], name: "hacker_news_stories_full_text_search_idx", using: :gin
   add_index "hacker_news_stories", ["hn_id"], name: "index_hacker_news_stories_on_hn_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
