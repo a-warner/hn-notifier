@@ -79,4 +79,14 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.logger = Logger.new(STDOUT)
+
+  config.log_formatter = ::Logger::Formatter.new
+
+  config.action_mailer.default_url_options = { :host => ENV.fetch('CANONICAL_DOMAIN') }
+
+  config.after_initialize do
+    FileUtils.touch('/tmp/app-initialized')
+  end
 end
