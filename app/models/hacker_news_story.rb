@@ -21,4 +21,8 @@ class HackerNewsStory < ActiveRecord::Base
     order('rank desc').
     limit(limit)
   end
+
+  def comments_url
+    "//news.ycombinator.com/item?id=#{hn_id}"
+  end
 end
