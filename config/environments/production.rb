@@ -89,4 +89,14 @@ Rails.application.configure do
   config.after_initialize do
     FileUtils.touch('/tmp/app-initialized')
   end
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    :authentication => :enable_starttls_auto,
+    :address => ENV.fetch('MAILGUN_SMTP_SERVER'),
+    :port => 465,
+    :domain => ENV.fetch('MAILGUN_DOMAIN'),
+    :user_name => ENV.fetch('MAILGUN_SMTP_LOGIN'),
+    :password => ENV.fetch('MAILGUN_SMTP_PASSWORD')
+  }
 end
