@@ -1,6 +1,8 @@
 class HackerNewsStory < ActiveRecord::Base
   validates :hn_id, :story_url, :title, :first_seen_on_front_page_at, presence: true
 
+  scope :recent_first, -> { order(first_seen_on_front_page_at: :desc) }
+
   class << self
     def scrape
       HackerNewsScraper.new.latest_hn_stories.each do |attrs|
