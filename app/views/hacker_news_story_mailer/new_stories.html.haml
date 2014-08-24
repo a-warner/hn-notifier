@@ -1,0 +1,10 @@
+%h1= link_to 'HN Notifier', root_url, target: '_blank'
+
+%table{style: 'text-align: left'}
+  %thead
+    %tr
+      %th Story
+  %tbody
+    - @stories.each do |story|
+      %tr
+        %td= link_to story.title, story.story_url, target: '_blank'

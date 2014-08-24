@@ -6,6 +6,7 @@ gem "decent_exposure"
 gem "decent_generators"
 gem 'delayed_job_active_record'
 gem "devise"
+gem 'dotenv'
 gem "haml"
 gem "haml-rails"
 gem 'mechanize'
@@ -26,6 +27,7 @@ gem 'will_paginate'
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'letter_opener'
 end
 
 group :test, :development do
