@@ -93,9 +93,8 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     :authentication => :plain,
-    :enable_starttls_auto => true,
     :address => ENV.fetch('MAILGUN_SMTP_SERVER'),
-    :port => 465,
+    :port => 587,
     :domain => ENV.fetch('MAILGUN_DOMAIN'),
     :user_name => ENV.fetch('MAILGUN_SMTP_LOGIN'),
     :password => ENV.fetch('MAILGUN_SMTP_PASSWORD')
