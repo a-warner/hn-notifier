@@ -1,4 +1,11 @@
-%h1 All Stories
+%h1
+  - if query
+    - if hacker_news_stories.any?
+      = "Stories matching #{query.inspect}"
+    - else
+      No Results
+  - else
+    All Stories
 
 %table.table
   %tr

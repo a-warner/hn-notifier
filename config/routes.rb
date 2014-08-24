@@ -4,4 +4,6 @@ Rails.application.routes.draw do
 
   resources :saved_searches, :only => %w(index new create destroy)
   resources :hacker_news_stories, :only => %w(index)
+
+  get :search, to: 'hacker_news_stories#search'
 end
