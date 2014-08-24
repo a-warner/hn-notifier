@@ -1,6 +1,7 @@
 ruby '2.1.2'
 source 'https://rubygems.org'
 
+gem 'addressable'
 gem "decent_exposure"
 gem "decent_generators"
 gem 'delayed_job_active_record'
