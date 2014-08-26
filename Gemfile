@@ -5,6 +5,7 @@ gem 'addressable'
 gem "decent_exposure"
 gem "decent_generators"
 gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 gem "devise"
 gem 'dotenv'
 gem "haml"

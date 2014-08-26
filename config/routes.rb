@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   resources :hacker_news_stories, :only => %w(index)
 
   get :search, to: 'hacker_news_stories#search'
+
+  constraints ->(request) { request.env['warden'].authenticate? && request.env['warden'].user.admin? } do
+    match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
+  end
 end

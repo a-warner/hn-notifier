@@ -12,6 +12,7 @@ class HackerNewsStory < ActiveRecord::Base
         end
       end
     end
+    handle_asynchronously :scrape, :priority => 1
   end
 
   scope :search, ->(query, limit: nil) do

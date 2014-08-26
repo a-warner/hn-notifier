@@ -21,6 +21,8 @@
               %ul.nav.navbar-nav
                 %li= link_to 'Saved Searches', saved_searches_path
                 %li= link_to 'All stories', hacker_news_stories_path
+                - if current_user.admin?
+                  %li= link_to 'Delayed Job', delayed_job_path, :'data-no-turbolink' => true
               %form.navbar-form.navbar-left{role: 'search', action: '/search'}
                 .form-group
                   = text_field_tag :q, '', class: 'form-control', placeholder: 'Search'

@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
         end
       end
     end
+    handle_asynchronously :notify_new_stories, :priority => 2
   end
 
   def last_notified_of_new_stories_at
