@@ -11,7 +11,7 @@ class HackerNewsScraper
       story_url.path = story_url.path.sub(/^([^\/])/, '/\1')
       story_url.host ||= 'news.ycombinator.com'
 
-      item_permalink = subtext_row.css('a[href*="item"]').first['href']
+      next unless item_permalink = subtext_row.css('a[href*="item"]').first.try(:[], 'href')
       hn_id = Rack::Utils.parse_nested_query(URI.parse(item_permalink).query)['id']
 
       {
