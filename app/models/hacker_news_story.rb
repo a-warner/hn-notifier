@@ -13,14 +13,31 @@ class HackerNewsStory < ActiveRecord::Base
       end
     end
     handle_asynchronously :scrape, :priority => 1
+
+    private
+
+    def full_text_search(raw_tsquery)
+      select("#{table_name}.*, ts_rank_cd(#{table_name}.full_text_search, query) rank").
+      from("#{table_name}, #{raw_tsquery} query").
+      where("query @@ #{table_name}.full_text_search").
+      order('rank desc')
+    end
   end
 
-  scope :search, ->(query, limit: nil) do
-    select("#{table_name}.*, ts_rank_cd(#{table_name}.full_text_search, query) rank").
-     from("#{table_name}, plainto_tsquery(#{connection.quote(query)}) query").
-    where("query @@ #{table_name}.full_text_search").
-    order('rank desc').
-    limit(limit)
+  scope :search, ->(query) do
+    full_text_search("plainto_tsquery(#{connection.quote(query)})")
+  end
+
+  scope :matching_any_term, ->(terms) do
+    ts_query_matching_any_term = terms.map { |t|
+      "plainto_tsquery(#{connection.quote(t)})::text"
+    }.join(%{ || ' | ' || })
+
+    full_text_search(%{to_tsquery(#{ts_query_matching_any_term})})
+  end
+
+  scope :matching_user_saved_searches, ->(user) do
+    matching_any_term(user.saved_searches.map(&:query))
   end
 
   def comments_url

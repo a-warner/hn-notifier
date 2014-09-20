@@ -1,0 +1,7 @@
+%h1
+  - if @hacker_news_stories.any?
+    = "Stories matching #{query.inspect}"
+  - else
+    No Results
+
+= render 'stories', :stories => @hacker_news_stories

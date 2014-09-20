@@ -1,18 +1,23 @@
 class HackerNewsStoriesController < ApplicationController
   before_filter :authenticate_user!
 
-  expose(:hacker_news_stories) do
-    scope = HackerNewsStory.recent_first
-    scope = scope.search(query) if query.present?
-    scope.paginate(page: params[:page])
-  end
-
   expose(:query) { params[:q].presence }
 
   def index
+    @hacker_news_stories = stories
+  end
+
+  def my_stories
+    @hacker_news_stories = stories.matching_user_saved_searches(current_user)
   end
 
   def search
-    render action: :index
+    @hacker_news_stories = stories.search(query)
+  end
+
+  private
+
+  def stories
+    HackerNewsStory.recent_first.paginate(:page => params[:page])
   end
 end

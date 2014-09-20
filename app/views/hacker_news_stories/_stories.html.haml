@@ -1,0 +1,13 @@
+%table.table
+  %tr
+    %th Story
+    %th
+    %th First Seen on Front Page At
+
+  - stories.each do |hacker_news_story|
+    %tr
+      %td= link_to hacker_news_story.title, hacker_news_story.story_url, target: '_blank'
+      %td= link_to 'Comments', hacker_news_story.comments_url, target: '_blank'
+      %td= hacker_news_story.first_seen_on_front_page_at
+
+= will_paginate stories
