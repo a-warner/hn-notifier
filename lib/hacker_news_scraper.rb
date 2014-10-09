@@ -1,34 +1,43 @@
-require 'addressable/uri'
-
 class HackerNewsScraper
+  BASE_URI = 'https://hacker-news.firebaseio.com/v0'
+  NUM_STORIES_ON_FRONT_PAGE = 30
+
   def latest_hn_stories
-    latest_hn_homepage.css('table table')[1].css('tr').each_slice(3).map do |title_row, subtext_row, _|
-      next if subtext_row.css('a[href="news?p=2"]').present?
-
-      story_link = title_row.css('td.title a').first
-
-      story_url = Addressable::URI.parse(story_link['href'])
-      story_url.path = story_url.path.sub(/^([^\/])/, '/\1')
-      story_url.host ||= 'news.ycombinator.com'
-
-      next unless item_permalink = subtext_row.css('a[href*="item"]').first.try(:[], 'href')
-      hn_id = Rack::Utils.parse_nested_query(URI.parse(item_permalink).query)['id']
-
+    paths = top_story_ids.first(NUM_STORIES_ON_FRONT_PAGE).map { |id| "/item/#{id}.json" }
+    get_all(paths).map do |story|
       {
-        story_url: story_url.to_s,
-        title: story_link.text,
-        hn_id: hn_id
+        story_url: story['url'],
+        title: story['title'],
+        hn_id: story['id']
       }
-    end.compact
-  end
-
-  def latest_hn_homepage
-    Nokogiri::HTML.parse(mechanize_client.get('https://news.ycombinator.com/news').body)
-  end
-
-  def mechanize_client
-    @client ||= Mechanize.new do |a|
-      a.user_agent_alias = 'Mac Safari'
     end
+  end
+
+  def top_story_ids
+    get '/topstories.json'
+  end
+
+  def get(path)
+    get_all([path]).first
+  end
+
+  def hn_api_path(path)
+    File.join(BASE_URI, path)
+  end
+
+  def get_path(path)
+    Typhoeus::Request.new(hn_api_path(path), followlocation: true)
+  end
+
+  def get_all(paths)
+    requests = paths.map { |path| get_path(path).tap { |r| hydra.queue(r) } }
+
+    hydra.run
+
+    requests.map { |request| JSON.parse(request.response.body) }
+  end
+
+  def hydra
+    @hydra ||= Typhoeus::Hydra.new
   end
 end

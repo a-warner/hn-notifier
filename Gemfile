@@ -10,7 +10,6 @@ gem "devise"
 gem 'dotenv'
 gem "haml"
 gem "haml-rails"
-gem 'mechanize'
 gem 'nokogiri'
 gem "pg"
 gem "pry"
@@ -23,6 +22,7 @@ gem 'rails', '~> 4.1.5'
 gem 'sass-rails'
 gem 'thin'
 gem 'turbolinks'
+gem 'typhoeus'
 gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate'
 
