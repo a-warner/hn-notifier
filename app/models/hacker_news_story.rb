@@ -5,7 +5,7 @@ class HackerNewsStory < ActiveRecord::Base
 
   class << self
     def scrape
-      HackerNewsScraper.new.latest_hn_stories.each do |attrs|
+      HackerNews.new.latest_hn_stories.each do |attrs|
         where(hn_id: attrs[:hn_id]).first_or_create! do |s|
           s.first_seen_on_front_page_at = Time.zone.now
           s.attributes = attrs

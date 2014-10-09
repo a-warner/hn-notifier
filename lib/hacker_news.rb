@@ -1,4 +1,4 @@
-class HackerNewsScraper
+class HackerNews
   BASE_URI = 'https://hacker-news.firebaseio.com/v0'
   NUM_STORIES_ON_FRONT_PAGE = 30
 
