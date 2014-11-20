@@ -41,6 +41,6 @@ class HackerNewsStory < ActiveRecord::Base
   end
 
   def comments_url
-    "//news.ycombinator.com/item?id=#{hn_id}"
+    "https://news.ycombinator.com/item?id=#{hn_id}"
   end
 end
