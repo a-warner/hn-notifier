@@ -1,5 +1,5 @@
 class HackerNewsStoryMailer < ActionMailer::Base
-  default from: "hello@#{ENV.fetch('CANONICAL_DOMAIN')}"
+  default from: %{"HN Notifier" <hello@#{ENV.fetch('CANONICAL_DOMAIN')}>}
 
   def new_stories(user, stories)
     @stories = stories
