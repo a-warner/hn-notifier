@@ -1,5 +1,3 @@
-%h1= link_to 'HN Notifier', root_url, target: '_blank'
-
 %table{style: 'text-align: left'}
   %thead
     %tr
@@ -10,3 +8,7 @@
         %td
           = link_to story.title, story.story_url, target: '_blank'
           &nbsp;(#{link_to 'Comments', story.comments_url})
+
+%br
+%hr
+%small= link_to 'Go to HN Notifier', root_url, target: '_blank'
